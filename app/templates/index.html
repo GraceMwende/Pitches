@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{% block content %}
+
+<h1><u>Category</u></h1>
+<h2><b>{{category}}</b></h2>
+<h3>{{title}}</h3>
+<p>{{description}}</p>
+<a href="/pitch/new">Create a new pitch</a>
+{% endblock %}
