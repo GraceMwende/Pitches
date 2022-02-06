@@ -2,6 +2,7 @@ from flask import render_template
 from . import main
 from .forms import PitchForm
 from ..models import Pitch
+from flask_login import login_required
 
 # Pitch = pitch.Pitch
 
@@ -37,6 +38,7 @@ def pitch(pitch_id):
 #   return render_template('new_pitch.html', pitch_form=form)
 
 @main.route('/pitch/new', methods=["GET","POST"])
+@login_required
 def new_pitch():
   form = PitchForm()
   # pitch = ()
