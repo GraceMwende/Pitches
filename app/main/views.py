@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import PitchForm
-from ..models import Pitch
+from ..models import Pitch,User
 from flask_login import login_required
 
 # Pitch = pitch.Pitch
@@ -51,7 +51,7 @@ def new_pitch():
 
   return render_template('new_pitch.html', pitch_form=form)
 
-@main.route('user/<uname>')
+@main.route('/user/<uname>')
 def profile(uname):
   user = User.query.filter_by(username=uname).first()
 
