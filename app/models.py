@@ -12,9 +12,10 @@ class Pitch(db.Model):
   __tablename__ = 'pitches'
   id = db.Column(db.Integer,primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+  category = db.Column(db.String(255))
   title = db.Column(db.String(255))
   description = db.Column(db.String(255))
-  # comments = db.relationship('Comments', backref='comment', lazy='dynamic')
+  comments = db.relationship('Comments', backref='comments', lazy='dynamic')
 
   def save_pitches(self):
     db.session.add(self)
@@ -38,16 +39,26 @@ class Pitch(db.Model):
 #   title = db.Column(db.String(255))
 #   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-# class Comments(db.Model):
+class Comments(db.Model):
 
-#   __tablename__ = "comments"
-#   id = db.Column(db.Integer,primary_key=True)
-#   username = db.Column(db.String(255))
-#   description = db.Column(db.String(255))
-#   pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+  __tablename__ = "comments"
+  id = db.Column(db.Integer,primary_key=True)
+  username = db.Column(db.String(255))
+  description = db.Column(db.String(255))
+  pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-# def __repr__(self):
-#   return f'Category {self.title}'
+  def save_comment(self):
+    db.session.add(self)
+    db.session.commit()
+
+  @classmethod
+  def get_comments(self):
+    comments = Comment.query.filter_by(pitch_id =id).all()
+    return comments
+
+  def __repr__(self):
+    return f'comment {self.title}'
 
 class User(UserMixin,db.Model):
 
@@ -58,6 +69,7 @@ class User(UserMixin,db.Model):
   role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
   # categories = db.relationship('Category', backref='role', lazy='dynamic')
   pitches = db.relationship('Pitch', backref='pitch', lazy='dynamic')
+  comments = db.relationship('Comments', backref='comment', lazy='dynamic')
   pass_secure = db.Column(db.String(255))
   bio = db.Column(db.String(255))
   profile_pic_path = db.Column(db.String())

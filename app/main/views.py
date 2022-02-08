@@ -47,13 +47,12 @@ def new_pitch(id):
   if form.validate_on_submit():
     title = form.title.data
     description = form.description.data
-    # category = form.category.data
+    category = form.category.data
 
-    new_pitch = Pitch(title=title,description=description,pitch=current_user)
+    new_pitch = Pitch(title=title,description=description,pitch=current_user,category=category)
 
     new_pitch.save_pitches()
     return redirect(url_for('.profile', uname=user.username))
-    return redirect(url_for('.interviewCategory', uname=user.username))
     
 
   return render_template('new_pitch.html', pitch_form=form)
@@ -99,9 +98,3 @@ def update_pic(uname):
     db.session.commit()
   
   return redirect(url_for('main.profile', uname=uname))
-
-  # display categories
-@main.route('/category/interview')
-def interviewCategory():
-
-  return render_template('pitches/interview.html')

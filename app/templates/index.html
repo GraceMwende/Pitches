@@ -14,7 +14,7 @@
 </div>
 <hr>
 <div class="row btw">
-  <a href="{{url_for('main.interviewCategory')}}"><button type="button" class="btn btn-success butn">Interview
+  <a href=""><button type="button" class="btn btn-success butn">Interview
       Pitch</button></a>
   <a href=""><button type="button" class="btn btn-success butn">Product Pitch</button></a>
   <a href=""><button type="button" class="btn btn-success butn">Pickup lines</button></a>
@@ -44,5 +44,5 @@
 <h2><b>{{category}}</b></h2>
 <h3>{{title}}</h3>
 <p>{{description}}</p>
-<a href="/pitch/new">Create a new pitch</a>
+<a href="/pitch/new/{{current_user.id}}">Create a new pitch</a>
 {% endblock %}
