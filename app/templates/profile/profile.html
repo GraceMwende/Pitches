@@ -32,8 +32,32 @@
         <input type="submit">
       </form>
       {% endif %}
-
     </div>
+  </div>
+  <div class="row">
+    {% if pitches %}
+    <a href="/pitch/new/{{current_user.id}}" class="text-center"><button>Create another new pitch</button></a>
+
+    <table class="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Pitch</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pitch in pitches %}
+        <tr>
+          <th scope="row">{{pitch.id}}</th>
+          <td>{{pitch.title}}</td>
+          <td>{{pitch.description}}</td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+    {% endif %}
+
   </div>
 </div>
 </div>

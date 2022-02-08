@@ -2,7 +2,7 @@ from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import PitchForm,UpdateProfile
 from ..models import Pitch,User
-from flask_login import login_required
+from flask_login import login_required,current_user
 from .. import db,photos
 
 # Pitch = pitch.Pitch
@@ -38,17 +38,23 @@ def pitch(pitch_id):
 
 #   return render_template('new_pitch.html', pitch_form=form)
 
-@main.route('/pitch/new', methods=["GET","POST"])
+@main.route('/pitch/new/<int:id>', methods=["GET","POST"])
 @login_required
-def new_pitch():
+def new_pitch(id):
   form = PitchForm()
-  # pitch = ()
+  user = User.query.filter_by(id=id).first()
 
   if form.validate_on_submit():
     title = form.title.data
-    pitch = form.description.data
-    category = form.category.data
-    new_pitch.save_review()
+    description = form.description.data
+    # category = form.category.data
+
+    new_pitch = Pitch(title=title,description=description,pitch=current_user)
+
+    new_pitch.save_pitches()
+    return redirect(url_for('.profile', uname=user.username))
+    return redirect(url_for('.interviewCategory', uname=user.username))
+    
 
   return render_template('new_pitch.html', pitch_form=form)
 
@@ -56,10 +62,12 @@ def new_pitch():
 def profile(uname):
   user = User.query.filter_by(username=uname).first()
 
+  pitches = Pitch.get_pitches(user.id)
+
   if user is None:
     abort(404)
 
-  return render_template('profile/profile.html', user=user)
+  return render_template('profile/profile.html', uname=user.username,user=user, pitches = pitches)
 
 @main.route('/user/<uname>/update', methods=["GET","POST"])
 @login_required
@@ -95,4 +103,5 @@ def update_pic(uname):
   # display categories
 @main.route('/category/interview')
 def interviewCategory():
+
   return render_template('pitches/interview.html')

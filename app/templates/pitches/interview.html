@@ -1,6 +1,32 @@
-<h1><u>Category</u></h1>
+{% extends 'bootstrap/base.html' %}
+{% block content %}
+<h1 class="text-center"><u>Interview Category</u></h1>
+<a href="/pitch/new/{{current_user.id}}" class="text-center"><button>Create a new pitch</button></a>
 <!-- <h2><b>{{category}}</b></h2>
 <h3>{{title}}</h3>
 <p>{{description}}</p> -->
-<p>Interview pitches</p>
-<a href="/pitch/new">Create a new pitch</a>
+<!-- <p>Interview pitches</p>
+<a href="/pitch/new">Create a new pitch</a> -->
+{% for pitch in pitches %}
+<p>pitch.title</p>
+<p>pitch.description</p>
+{%endfor%}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          {{Featured}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
