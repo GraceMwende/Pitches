@@ -8,16 +8,21 @@ from .. import db,photos
 # Pitch = pitch.Pitch
 
 #views
-@main.route('/')
+@main.route('/',methods=["GET","POST"])
 def index():
   """View page that returns the index page and its data"""
+  form = PitchForm()
 
-  # Get promotion pitches
-  category = "promotions"
-  title = "Banking Finance"
-  description = "I want the latest in...'re committed to your privacy. HubSpot uses the information you provide to us to contact you about our relevant content, products, and services. You may unsubscribe from these communications at any time"
+  # if form.validate_on_submit():
+  category = form.category.data
 
-  return render_template('index.html', category=category, title=title, description=description)
+  pitches = Pitch.query.all()
+  interview = Pitch.query.filter_by(category='interview').all()
+  promotion = Pitch.query.filter_by(category='promotion').all()
+  tech = Pitch.query.filter_by(category='technology').all()
+  pickup = Pitch.query.filter_by(category='pickuplines').all()
+
+  return render_template('index.html',pitches=pitches, interview=interview, promotion=promotion, tech=tech,pickup=pickup)
 
 @main.route('/pitch/<pitch_id>')
 def pitch(pitch_id):

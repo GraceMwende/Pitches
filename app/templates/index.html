@@ -14,12 +14,33 @@
   <a href="/pitch/new/{{current_user.id}}"><button class="btn-primary">Create a new pitch</button></a>
 </div>
 <hr>
-<div class="row btw">
-  <a href=""><button type="button" class="btn btn-success butn">Interview
+<!-- <div class="row text-center nav nav-tabs" id="myTab" role="tablist">
+  <a href="#all"><button type="button" class="btn btn-success nav-item">All
+      Pitches</button></a>
+  <a href="#int"><button type="button" class="btn btn-success nav-item">Interview
       Pitch</button></a>
-  <a href=""><button type="button" class="btn btn-success butn">Technology Pitch</button></a>
-  <a href=""><button type="button" class="btn btn-success butn">Pickup lines</button></a>
-  <a href=""><button type="button" class="btn btn-success butn">Promotion Pitch</button></a>
+  <a href="#tech"><button type="button" class="btn btn-success nav-item">Technology Pitch</button></a>
+  <a href="#pick"><button type="button" class="btn btn-success nav-item">Pickup lines</button></a>
+  <a href="#promo"><button type="button" class="btn btn-success nav-item">Promotion Pitch</button></a>
+</div> -->
+<div class="tab-content" id="myTabContent">
+  <div class="container tab-pane active" id="all"><br>
+    {{ macro.display(pitches) }}
+  </div>
+  <div class="container tab-pane fade" id="int"><br>
+    {{ macro.display(interview)}}
+  </div>
+  <div class="container tab-pane fade" id="tech"><br>
+    {{ macro.display(tech) }}
+  </div>
+  <div class="container tab-pane fade" id="pick"><br>
+    {{ macro.display(pickup) }}
+
+  </div>
+  <div class="container tab-pane fade" id="promo"><br>
+    {{ macro.display(promotion) }}
+
+  </div>
 </div>
 <!-- <div class="bg">
   <h1><u>Category</u></h1>
