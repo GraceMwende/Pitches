@@ -23,7 +23,7 @@
   <a href="#pick"><button type="button" class="btn btn-success nav-item">Pickup lines</button></a>
   <a href="#promo"><button type="button" class="btn btn-success nav-item">Promotion Pitch</button></a>
 </div> -->
-<div class="tab-content" id="myTabContent">
+<!-- <div class="tab-content" id="myTabContent">
   <div class="container tab-pane active" id="all"><br>
     {{ macro.display(pitches) }}
   </div>
@@ -41,13 +41,6 @@
     {{ macro.display(promotion) }}
 
   </div>
-</div>
-<!-- <div class="bg">
-  <h1><u>Category</u></h1>
-  <h2><b>{{category}}</b></h2>
-  <h3>{{title}}</h3>
-  <p>{{description}}</p>
-  <a href="/pitch/new">Create a new pitch</a>
 </div> -->
 <div class="row">
   <div class="col-md-7 bg">
@@ -62,9 +55,48 @@
     <div class="txt text-right">~Peter Coughter</div>
   </div>
 </div>
-<h1><u>Category</u></h1>
-<h2><b>{{category}}</b></h2>
-<h3>{{title}}</h3>
-<p>{{description}}</p>
 <a href="/pitch/new/{{current_user.id}}">Create a new pitch</a>
+<div class="container">
+  <ul class="nav nav-pills nav-justified nav-fill" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#all"><strong>All Pitches</strong> </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#int">Interview Pitches</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#tech">Tech Pitches</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#pick">pickup Lines</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#promo">Promotion Pitches</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="container tab-pane active" id="all"><br>
+      {{ macro.display(pitches) }}
+    </div>
+    <div class="container tab-pane fade" id="int"><br>
+      {{ macro.display(interview)}}
+    </div>
+    <div class="container tab-pane fade" id="tech"><br>
+      {{ macro.display(tech) }}
+    </div>
+    <div class="container tab-pane fade" id="pick"><br>
+      {{ macro.display(pick) }}
+    </div>
+    <div class="container tab-pane fade" id="promo"><br>
+      {{ macro.display(promo) }}
+    </div>
+  </div>
+</div>
+<!-- <div class="bg">
+  <h1><u>Category</u></h1>
+  <h2><b>{{category}}</b></h2>
+  <h3>{{title}}</h3>
+  <p>{{description}}</p>
+  <a href="/pitch/new">Create a new pitch</a>
+</div> -->
 {% endblock %}
