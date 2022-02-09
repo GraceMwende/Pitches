@@ -9,18 +9,20 @@
         <div class="card-body">
           <p>Pitch:{{pitch.description}}</p>
           <p class="text-center"> pitch-category: {{pitch.category}}</p>
-          <footer class="blockquote-footer text-center"> Posted by: {{pitch.user}}</footer>
+          <footer class="blockquote-footer text-center"> Posted by: {{pitch.current_user}}</footer>
         </div>
       </div>
     </div>
 
     {% endfor %}
     {% else %}
-    <div>
-      <p class="card-title">pitch Has 0 posts</p>
+    <div class="card w-90 mb-3">
+      <div class="card-body">
+
+        <p class="card-title">pitch Has 0 posts</p>
+      </div>
     </div>
+    {% endif %}
   </div>
-  {% endif %}
-</div>
 </div>
 {% endmacro %}
