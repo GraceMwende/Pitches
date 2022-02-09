@@ -11,10 +11,6 @@ from .. import db,photos
 @main.route('/',methods=["GET","POST"])
 def index():
   """View page that returns the index page and its data"""
-  form = PitchForm()
-
-  # if form.validate_on_submit():
-  category = form.category.data
 
   pitches = Pitch.query.all()
   interview = Pitch.query.filter_by(category='interview').all()
