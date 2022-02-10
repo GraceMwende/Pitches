@@ -12,7 +12,7 @@
   <h2>Welcome to Pitches!!</h2>
   <p>Creat a compelling pitch to waoow your audience</p>
 
-  {% if current_user.isAuthenticated %}
+  {% if current_user.is_authenticated %}
   <a href="/pitch/new/{{current_user.id}}"><button class="btn-primary">Create a new pitch</button></a>
   {% else %}
 
