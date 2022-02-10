@@ -23,7 +23,7 @@ def index():
   tech = Pitch.query.filter_by(category='technology').all()
   pickup = Pitch.query.filter_by(category='pickuplines').all()
 
-  return render_template('index.html',pitches=pitches, interview=interview, promotion=promotion, tech=tech,pickup=pickup)
+  return render_template('index.html',pitches=pitches, interview=interview, promotion=promotion, tech=tech,pickup=pickup, logged_user=current_user)
 
 @main.route('/pitch/<pitch_id>')
 def pitch(pitch_id):
@@ -134,3 +134,17 @@ def single_comment(id):
 
   format_comment = markdown2.markdown(comment.description,extras=["code-friendly","fenced-code-blocks"])
   return render_template('comment.html',comment=comment,format_comment=format_comment)
+
+@main.route('/like/<int:pitch_id>/<action>')
+@login_required
+def like_action(pitch_id, action):
+  post = Pitch.query.filter_by(id=pitch_id).first_or_404()
+
+  if action == 'like':
+    current_user.like_post(post)
+    db.session.commit()
+
+  if action == 'unlike':
+    current_user.unlike_post(post)
+    db.session.commit()
+  return redirect(request.referrer)

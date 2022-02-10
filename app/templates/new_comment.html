@@ -4,9 +4,11 @@
 {% block content %}
 <div class="container">
   <div class="col-md-6">
-    ui;lkjg
-    <p>{{pitch.title}}</p>
-    <p>{{pitch.description}}</p>
+    <div class="thumbnail">
+      <p>{{pitch.title}}</p>
+      <p>{{pitch.description}}</p>
+      like dislike
+    </div>
 
     {% for comment in comment_pitch %}
     <h2>{{comment.description}}</h2>

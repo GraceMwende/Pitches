@@ -16,7 +16,7 @@ class Pitch(db.Model):
   title = db.Column(db.String(255))
   description = db.Column(db.String(255))
   comments = db.relationship('Comments', backref='comments', lazy='dynamic')
-  likes = db.relationship('Likes', backref='likes', lazy='dynamic')
+  likes = db.relationship('Likes', backref='pitch', lazy='dynamic')
   dislikes = db.relationship('Dislikes',backref='dislikes',lazy='dynamic')
 
   def save_pitches(self):
@@ -105,12 +105,28 @@ class User(UserMixin,db.Model):
   username = db.Column(db.String(255))
   email = db.Column(db.String(255), unique=True, index=True)
   role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-  # categories = db.relationship('Category', backref='role', lazy='dynamic')
   pitches = db.relationship('Pitch', backref='pitch', lazy='dynamic')
   comments = db.relationship('Comments', backref='user', lazy='dynamic')
+  liked = db.relationship('Likes', backref='users', lazy='dynamic')
   pass_secure = db.Column(db.String(255))
   bio = db.Column(db.String(255))
   profile_pic_path = db.Column(db.String())
+
+  def like_post(self,post):
+    if not self.has_liked_post(post):
+      like = Likes(user_id=self.id, pitch_id=post.id)
+      db.session.add(like)
+    
+  def unlike_post(self,post):
+    if self.has_liked_post(post):
+      Likes.query.filter_by(
+                          user_id = self.id,
+                          pitch_id=post.id).delete()
+
+  def has_liked_post(self,post):
+    return Likes.query.filter(
+      Likes.user_id == self.id,
+      Likes.pitch_id == post.id).count() >0
 
   @property
   def password(self):

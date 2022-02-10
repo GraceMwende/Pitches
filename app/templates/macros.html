@@ -1,4 +1,4 @@
-{% macro display(pitches) %}
+{% macro display(pitches, logged_user, disabled=False) %}
 <div class="container-fluid">
   <div class="row">
     {% if pitches %}
@@ -11,6 +11,16 @@
           <p>Pitch:{{pitch.description}}</p>
           <p class="text-center"> pitch-category: {{pitch.category}}</p>
           <footer class="blockquote-footer text-center"> Posted by: {{pitch.pitch.username}}</footer>
+          {% if logged_user.is_authenticated %}
+          {% if logged_user.has_liked_post(pitch) %}
+          <a href="{{url_for('.like_action',pitch_id=pitch.id, action='unlike')}}">Unlike</a>
+          {% else %}
+          <a href="{{url_for('.like_action',pitch_id=pitch.id, action='like')}}">Like</a>
+          {% endif %}
+          {{pitch.likes.count()}} likes
+          {% else %}
+          {{pitch.likes.count()}}likes
+          {% endif %}
         </div>
       </div>
     </div>

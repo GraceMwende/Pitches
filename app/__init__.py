@@ -13,6 +13,7 @@ photos = UploadSet('photos',IMAGES)
 mail = Mail()
 simple = SimpleMDE()
 
+
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
@@ -20,7 +21,7 @@ login_manager.login_view = 'auth.login'
 def create_app(config_name):
   # initialize the app
   app = Flask(__name__)
-
+  
   # creating app configurations
   app.config.from_object(config_options[config_name])
   # app.config.from_pyfile('config.py')
