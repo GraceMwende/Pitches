@@ -5,9 +5,8 @@
 <div class="container">
   <div class="col-md-6">
     <div class="thumbnail">
-      <p>{{pitch.title}}</p>
-      <p>{{pitch.description}}</p>
-      like dislike
+      <button class="btn btn-success" style="width:100%">PitchTitle:{{pitch.title}}</button></a>
+      <p class="h3">{{pitch.description}}</p>
     </div>
 
     {% for comment in comment_pitch %}
