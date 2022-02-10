@@ -2,7 +2,6 @@ import os
 class Config:
   """General configuration parent class"""
   SECRET_KEY = os.environ.get('SECRET_KEY')
-  SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/pitch'
   SQLALCHEMY_TRACK_MODIFICATIONS = False
   UPLOADED_PHOTOS_DEST = 'app/static/photos'
 
@@ -26,6 +25,8 @@ class DevConfig(Config):
   Args:
     Config:The parent configuration class with General configuration settings
   """
+  SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/pitch'
+
   DEBUG = True
 
 config_options = {
