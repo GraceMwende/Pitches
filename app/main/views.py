@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import PitchForm,UpdateProfile,CommentForm
-from ..models import Pitch,User
+from ..models import Pitch,User,Comments
 from flask_login import login_required,current_user
 from .. import db,photos
 
@@ -115,7 +115,7 @@ def new_comment(id):
     comment = form.comment.data
 
   # comment instance
-    new_comment = comment(pitch_id =pitch.id, pitch_comment = comment, user=current_user)
+    new_comment = Comments(pitch_id =pitch.id, pitch_comment = comment, user=current_user)
 
     # save comment
     new_comment.save_comment()
