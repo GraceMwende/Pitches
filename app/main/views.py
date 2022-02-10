@@ -121,7 +121,7 @@ def new_comment(id):
 
     # save comment
     new_comment.save_comment()
-    return redirect(url_for('.index'))
+    return redirect(request.url)
   
   # title = f'{pitch.title} comment'
   return render_template('new_comment.html', comment_form=form, pitch=pitch,comment_pitch=comment_pitch)
