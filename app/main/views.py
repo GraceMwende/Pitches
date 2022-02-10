@@ -110,20 +110,21 @@ def update_pic(uname):
 def new_comment(id):
   form = CommentForm()
   # pitches = Pitch.get_pitches(user.id)
-  pitch = Pitch.get_pitches(id)
+  pitch = Pitch.query.filter_by(id=id).first()
+  comment_pitch = Comments.query.filter_by(comments=pitch).all()
 
   if form.validate_on_submit():
     comment = form.comment.data
 
   # comment instance
-    new_comment = Comments(pitch_id =pitch.id, pitch_comment = comment, user=current_user)
+    new_comment = Comments(pitch_id =pitch.id, description = comment, user=current_user, comments=pitch)
 
     # save comment
     new_comment.save_comment()
-    return redirect(url_for('.index', id=pitch_id))
+    return redirect(url_for('.index'))
   
   # title = f'{pitch.title} comment'
-  return render_template('new_comment.html', comment_form=form, pitch=pitch)
+  return render_template('new_comment.html', comment_form=form, pitch=pitch,comment_pitch=comment_pitch)
 
 @main.route('/comment/<int:id>')
 def single_comment(id):
