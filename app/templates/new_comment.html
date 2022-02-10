@@ -3,13 +3,13 @@
 
 {% block content %}
 <div class="container">
-  <div class="col-md-8">
+  <div class="col-md-6">
     <p>{{pitch.title}}</p>
     <p>{{pitch.description}}</p>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-6">
     {{wtf.quick_form(comment_form)}}
-
+    {{simplemde.load}}
   </div>
 </div>
 {% endblock %}

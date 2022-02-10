@@ -4,6 +4,7 @@ from .forms import PitchForm,UpdateProfile,CommentForm
 from ..models import Pitch,User,Comments
 from flask_login import login_required,current_user
 from .. import db,photos
+import markdown2
 
 # Pitch = pitch.Pitch
 
@@ -124,3 +125,11 @@ def new_comment(id):
   # title = f'{pitch.title} comment'
   return render_template('new_comment.html', comment_form=form, pitch=pitch)
 
+@main.route('/comment/<int:id>')
+def single_comment(id):
+  comment = Comments.query.get(id)
+  if comment is None:
+    abort(404)
+
+  format_comment = markdown2.markdown(comment.description,extras=["code-friendly","fenced-code-blocks"])
+  return render_template('comment.html',comment=comment,format_comment=format_comment)
