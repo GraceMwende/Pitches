@@ -16,6 +16,8 @@ class Pitch(db.Model):
   title = db.Column(db.String(255))
   description = db.Column(db.String(255))
   comments = db.relationship('Comments', backref='comments', lazy='dynamic')
+  likes = db.relationship('Likes', backref='likes', lazy='dynamic')
+  dislikes = db.relationship('Dislikes',backref='dislikes',lazy='dynamic')
 
   def save_pitches(self):
     db.session.add(self)
@@ -43,8 +45,45 @@ class Comments(db.Model):
 
   __tablename__ = "comments"
   id = db.Column(db.Integer,primary_key=True)
-  username = db.Column(db.String(255))
+  # username = db.Column(db.String(255))
   description = db.Column(db.String(255))
+  pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+  
+
+  def save_comment(self):
+    db.session.add(self)
+    db.session.commit()
+
+  @classmethod
+  def get_comments(cls,id):
+    comments = Comment.query.filter_by(pitch_id =id).all()
+    return comments
+
+  def __repr__(self):
+    return f'comment {self.description}'
+
+class Likes(db.Model):
+  __tablename__ = 'likes'
+  id = db.Column(db.Integer, primary_key=True)
+  pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+  def save_like(self):
+    db.session.add(self)
+    db.session.commit()
+
+  @classmethod
+  def get_like(cls,id):
+    likes = Likes.query.filter_by(pitch_id =id).all()
+    return likes
+
+  def __repr__(self):
+    return f'comment {self.description}'
+
+class Dislikes(db.Model):
+  __tablename__ = 'dislikes'
+  id = db.Column(db.Integer, primary_key=True)
   pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
@@ -53,12 +92,12 @@ class Comments(db.Model):
     db.session.commit()
 
   @classmethod
-  def get_comments(self):
+  def get_comments(cls,id):
     comments = Comment.query.filter_by(pitch_id =id).all()
     return comments
 
   def __repr__(self):
-    return f'comment {self.title}'
+    return f'comment {self.description}'
 
 class User(UserMixin,db.Model):
 
@@ -69,7 +108,7 @@ class User(UserMixin,db.Model):
   role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
   # categories = db.relationship('Category', backref='role', lazy='dynamic')
   pitches = db.relationship('Pitch', backref='pitch', lazy='dynamic')
-  comments = db.relationship('Comments', backref='comment', lazy='dynamic')
+  comments = db.relationship('Comments', backref='user', lazy='dynamic')
   pass_secure = db.Column(db.String(255))
   bio = db.Column(db.String(255))
   profile_pic_path = db.Column(db.String())

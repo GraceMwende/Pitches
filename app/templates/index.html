@@ -11,7 +11,14 @@
 <div class="text-center">
   <h2>Welcome to Pitches!!</h2>
   <p>Creat a compelling pitch to waoow your audience</p>
+
+  {% if current_user.isAuthenticated %}
   <a href="/pitch/new/{{current_user.id}}"><button class="btn-primary">Create a new pitch</button></a>
+  {% else %}
+
+  <a href="/authenticate/login"><button class="btn-primary">Login</button></a>
+  <p>Login to create a new pitch</p>
+  {% endif %}
 </div>
 <hr>
 <!-- <div class="row text-center nav nav-tabs" id="myTab" role="tablist">
@@ -98,6 +105,6 @@
     <div class="txt text-right">~Peter Coughter</div>
   </div>
 </div>
-<p>{{description}}</p>
-<a href="/pitch/new/{{current_user.id}}">Create a new pitch</a>
+<!-- <p>{{description}}</p>
+<a href="/pitch/new/{{current_user.id}}">Create a new pitch</a> -->
 {% endblock %}

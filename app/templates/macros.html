@@ -5,18 +5,19 @@
     {% for pitch in pitches %}
     <div class="col-md-4">
       <div class="thumbnail" id="carded">
-        <h5 class="card-header">PitchTitle:{{pitch.title}}</h5>
+        <h5 class="card-header"><a href="/pitch/comment/new/{{pitch.id}}">PitchTitle:{{pitch.title}}</a>
+        </h5>
         <div class="card-body">
           <p>Pitch:{{pitch.description}}</p>
           <p class="text-center"> pitch-category: {{pitch.category}}</p>
-          <footer class="blockquote-footer text-center"> Posted by: {{pitch.current_user}}</footer>
+          <footer class="blockquote-footer text-center"> Posted by: {{pitch.pitch.username}}</footer>
         </div>
       </div>
     </div>
 
     {% endfor %}
     {% else %}
-    <div class="card w-90 mb-3">
+    <div class="card w-90 mb-2">
       <div class="card-body">
 
         <p class="card-title">pitch Has 0 posts</p>
