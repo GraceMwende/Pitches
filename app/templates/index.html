@@ -5,15 +5,17 @@
 {% block styles %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@500&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
+</div>
 <div class="text-center">
-  <h2>Welcome to Pitches!!</h2>
-  <p>Creat a compelling pitch to waoow your audience</p>
+  <h2 class="h1"><strong>Welcome to Pitches!!</strong></h2>
+  <p class="h2 text-warning">Creat a compelling pitches to waoow your audience</p>
 
   {% if current_user.is_authenticated %}
-  <a href="/pitch/new/{{current_user.id}}"><button class="btn-primary">Create a new pitch</button></a>
+  <a href="/pitch/new/{{current_user.id}}"><button class="btn btn-success">Create a new pitch</button></a>
   {% else %}
 
   <a href="/authenticate/login"><button class="btn-primary">Login</button></a>
@@ -57,14 +59,7 @@
     </div>
   </div>
 </div>
-<!-- <div class="bg">
-  <h1><u>Category</u></h1>
-  <h2><b>{{category}}</b></h2>
-  <h3>{{title}}</h3>
-  <p>{{description}}</p>
-  <a href="/pitch/new">Create a new pitch</a>
-</div> -->
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-7 bg">
 
   </div>
@@ -76,7 +71,7 @@
       work to selling the work. Do an ad for your ads.”</p>
     <div class="txt text-right">~Peter Coughter</div>
   </div>
-</div>
+</div> -->
 <!-- <p>{{description}}</p>
 <a href="/pitch/new/{{current_user.id}}">Create a new pitch</a> -->
 {% endblock %}

@@ -5,3 +5,7 @@
   height: 70vh;
   overflow-x: hidden;
 }
+
+.test {
+  background-color: red;
+}

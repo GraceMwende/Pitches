@@ -5,22 +5,26 @@
     {% for pitch in pitches %}
     <div class="col-md-4">
       <div class="thumbnail">
-        <h5 class="card-header"><a href="/pitch/comment/new/{{pitch.id}}">PitchTitle:{{pitch.title}}</a>
+        <h5 class="card-header"><a href="/pitch/comment/new/{{pitch.id}}"><button class="btn btn-success"
+              style="width:100%">PitchTitle:{{pitch.title}}</button></a>
         </h5>
         <div class="card-body">
           <p>Pitch:{{pitch.description}}</p>
-          <p class="text-center"> pitch-category: {{pitch.category}}</p>
-          <footer class="blockquote-footer text-center"> Posted by: {{pitch.pitch.username}}</footer>
+          <p> <b>pitch-category:</b> {{pitch.category}}</p>
           {% if logged_user.is_authenticated %}
           {% if logged_user.has_liked_post(pitch) %}
-          <a href="{{url_for('.like_action',pitch_id=pitch.id, action='unlike')}}">Unlike</a>
+          <a href="{{url_for('.like_action',pitch_id=pitch.id, action='unlike')}}"><button
+              class="btn btn-primary">Unlike</button></a>
           {% else %}
-          <a href="{{url_for('.like_action',pitch_id=pitch.id, action='like')}}">Like</a>
+          <a href="{{url_for('.like_action',pitch_id=pitch.id, action='like')}}"><button
+              class="btn btn-primary">Like</button></a>
           {% endif %}
           {{pitch.likes.count()}} likes
           {% else %}
           {{pitch.likes.count()}}likes
           {% endif %}
+          <a href="/pitch/comment/new/{{pitch.id}}"><button class="btn btn-primary text-right">Add coment</button></a>
+          <footer class="blockquote-footer text-right text-muted"> <b>Posted by:</b> ~ {{pitch.pitch.username}}</footer>
         </div>
       </div>
     </div>
